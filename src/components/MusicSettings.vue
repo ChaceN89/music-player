@@ -1,5 +1,5 @@
 <template>
-  <font-awesome-icon :icon="['fas', 'gear']" size="2x"/>
+  <font-awesome-icon class="buttonHover" :icon="['fas', 'gear']" size="2x"/>
 </template>
 
 <script>

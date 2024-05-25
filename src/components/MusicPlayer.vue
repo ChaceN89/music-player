@@ -129,6 +129,7 @@ export default {
 
 
 <style scoped>
+
 .vertical-line::before {
     content: '';
     display: inline-block;

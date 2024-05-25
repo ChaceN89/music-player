@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="handleRandomSong">
-      <font-awesome-icon size="2x" :icon="['fas', 'shuffle']" />
+      <font-awesome-icon class="buttonHover pb-3" size="2x" :icon="['fas', 'shuffle']" />
     </button>
     
     <ul>

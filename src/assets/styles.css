@@ -23,25 +23,41 @@ body {
 }
 
 .song-info {
-    @apply text-center;
+    @apply text-center ;
 }
 
 .album-container {
-    @apply flex justify-center my-4;
+    @apply flex justify-center my-2 ;
 }
 
 .albumArt {
     @apply w-full max-w-xs md:max-w-md lg:max-w-xl shadow-2xl rounded-md;
+    width: auto;
+    height: auto;
 }
 
+@media (max-height: 600px) {
+    .albumArt {
+        max-height: 40vh; /* For small viewport heights */
+    }
+}
+
+@media (min-height: 601px) and (max-height: 900px) {
+    .albumArt {
+        max-height: 50vh; /* For medium viewport heights */
+    }
+}
+
+
 .playlist {
-    @apply text-xs xxs:text-sm md:text-base  md:w-[400px] lg:w-[575px] xl:w-[650px]
-      flex-shrink border-2 border-opacity-20 border-zinc-950 shadow-2xl rounded-md p-10 overflow-y-auto px-10 mt-1 ;
-    max-height: calc(100vh - 6rem); /* Adjusting height to ensure it fits within the screen height */
+    @apply text-xs xxs:text-sm md:text-base md:w-[400px] lg:w-[575px] xl:w-[650px] flex-shrink border-2 border-opacity-20 border-zinc-950 shadow-2xl rounded-md p-10 overflow-y-auto px-10 mt-2;
+    max-height: calc(100vh - 5rem); /* Adjusting height to ensure it fits within the screen height */
+    box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 .playlistSong {
-    @apply flex items-center p-1 sm:w-72 2xl:w-[600px];
+    @apply flex items-center w-full; /* Ensure it takes the full width of the container */
+    box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 .playlistSong>img {
@@ -57,7 +73,7 @@ body {
 }
 
 .buttonHover {
-    @apply hover:scale-105 hover:cursor-pointer;
+    @apply hover:scale-110 hover:cursor-pointer  hover:text-slate-700;
 }
 
 .vertical-line::before {
@@ -78,10 +94,18 @@ body {
 }
 
 .playlist::-webkit-scrollbar-thumb {
-    background-color: #888; /* Color of the scrollbar thumb */
+    background: linear-gradient(180deg, #6b7280, #374151); /* Gradient color for the scrollbar thumb */
     border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Adding shadow for a 3D effect */
+    transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition for hover effects */
 }
 
 .playlist::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* Color of the scrollbar thumb on hover */
+    background: linear-gradient(180deg, #374151, #111827); /* Darker gradient on hover */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* More pronounced shadow on hover */
 }
+
+.playlist::-webkit-scrollbar-track {
+    background: #e5e7eb; /* Lighter background for the scrollbar track */
+    border-radius: 10px; /* Matching the thumb's border radius */
+} 
