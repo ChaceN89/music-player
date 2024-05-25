@@ -1,5 +1,5 @@
 export default [
-  "A Hard Day's Night.mp3",
+  "A Hard Days Night.mp3",
   "Can't Buy Me Love.mp3",
   "Come Together.mp3",
   "Derezzed (Avicii remix).m4a",

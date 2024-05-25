@@ -1,5 +1,5 @@
 <template>
-  <div class="playlistSong">
+  <div class="playlistSong" v-intersect="onIntersect">
     <img :src="songInfo.albumArt" alt="Album Art" v-if="songInfo.albumArt" />
     <div>
       <p><strong>Title:</strong> {{ songInfo.title }}</p>
@@ -28,32 +28,31 @@ export default {
         album: '',
         duration: '',
         albumArt: ''
-      }
+      },
+      isIntersected: false
     };
   },
-  async mounted() {
-    if (this.fileName) {
-      try {
-        const data = await extractSongMetadata(this.fileName);
-        this.songInfo = data;
-      } catch (error) {
-        console.error("Error extracting metadata:", error);
+  methods: {
+    onIntersect(entry, observer) {
+      if (entry.isIntersecting) {
+        this.loadSongMetadata();
+        observer.unobserve(entry.target); // Stop observing once the metadata is loaded
       }
-    } else {
-      console.error("fileName prop is not defined");
+    },
+    async loadSongMetadata() {
+      if (this.fileName && !this.isIntersected) {
+        try {
+          const data = await extractSongMetadata(this.fileName);
+          this.songInfo = data;
+          this.isIntersected = true;
+        } catch (error) {
+          console.error("Error extracting metadata:", error);
+        }
+      } else {
+        console.error("fileName prop is not defined");
+      }
     }
   }
 };
 </script>
 
-<style>
-.flex {
-  display: flex;
-  align-items: center;
-}
-.img {
-  height: 8rem;
-  width: 8rem;
-  margin: 0.5rem;
-}
-</style>
