@@ -29,7 +29,7 @@ body {
 }
 
 .song-info {
-    @apply text-center ;
+    @apply text-center;
 }
 
 .album-container {
@@ -38,7 +38,7 @@ body {
 }
 
 .albumArt {
-    @apply w-full max-w-xs md:max-w-md lg:max-w-xl shadow-2xl rounded-md;
+    @apply w-full max-w-xs md:max-w-md lg:max-w-xl shadow-2xl rounded-md hover:scale-95;
     width: 100%; /* Ensure the image takes the full width of the container */
     height: auto;
 }
@@ -59,7 +59,7 @@ body {
 
 
 .playlist {
-    @apply 
+    @apply bg-zinc-300 dark:bg-stone-700
     text-xs sm:text-sm md:text-base 
     md:w-[400px] lg:w-[575px] xl:w-[650px] 
     flex-shrink 
@@ -71,7 +71,8 @@ body {
 }
 
 .playlistSong {
-    @apply flex items-center w-full; /* Ensure it takes the full width of the container */
+    @apply hover:cursor-pointer hover:bg-slate-300 hover:rounded-lg dark:hover:bg-slate-600
+    flex items-center w-full gap-x-2 md:gap-x-0  lg:gap-x-5; /* Ensure it takes the full width of the container */
     box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
@@ -80,7 +81,7 @@ body {
 }
 
 .playlistText{
-    @apply w-52
+    @apply w-full md:text-lg text-left
 }
 
 .activeSong {
@@ -92,7 +93,7 @@ body {
 }
 
 .buttonHover {
-    @apply hover:scale-110 hover:cursor-pointer  hover:text-slate-700;
+    @apply hover:scale-125 hover:cursor-pointer  hover:text-slate-700;
 }
 
 .vertical-line::before {
