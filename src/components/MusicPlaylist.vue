@@ -1,11 +1,17 @@
 <template>
   <div>
     <div>MusicPlaylist</div>
-    <font-awesome-icon :icon="['fas', 'shuffle']" />
+    <div>audioFileNames{{ audioFileNames }}</div>
+
+    <button @click="$emit('randomSong')">
+      <font-awesome-icon :icon="['fas', 'shuffle']" />
+    </button>
+    
     <ul>
-      <li v-for="fileObject in audioFiles" :key="fileObject.path">
-        <!-- <SongInfo :fileObject="fileObject" /> -->
-        <SongInfo :audioFile=fileObject />
+      <li v-for="(fileName, index) in audioFileNames" :key="fileName" @click="$emit('setSongIndex', index)">
+        <div>{{index}}</div>
+        <div>{{fileName}}</div>
+        <SongInfo :fileName="fileName" />
       </li>
     </ul>
     
@@ -20,33 +26,25 @@ export default {
   components: {
     SongInfo
   },
-
-  // variable that are used and have changes recognized by the DOM - like the globals of this component
-  data() {
-    return {
-      audioFiles: []
-    };
+  // arguments passed into this 
+  props: {
+    audioFileNames: {
+      type: Array,
+      required: true,
+    },
+    currentSongIndex: {
+      type: Number,
+      required: true,
+    },
+    setSongIndex: {
+      type: Function,
+      required: true,
+    },
+    randomSong: {
+      type: Function,
+      required: true,
+    },
   },
-
-  // call this function when this 
-  mounted() {
-    this.loadAudioFiles();
-  },
-
-  // list of function that can be used 
-  methods: {
-    async loadAudioFiles() {
-      try {
-        const response = await fetch('/music-files.json');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        this.audioFiles = await response.json();
-      } catch (error) {
-        console.error('Error loading audio files:', error);
-      }
-    }
-  }
 };
 </script>
 

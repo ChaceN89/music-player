@@ -2,6 +2,7 @@
   <div class="flex items-center">
     <img class="h-32 w-32 m-2" :src="songInfo.albumArt" alt="Album Art" v-if="songInfo.albumArt" />
     <div>
+      <p>{{ fileName }}</p>
       <p><strong>Title:</strong> {{ songInfo.title }}</p>
       <p><strong>Artist:</strong> {{ songInfo.artist }}</p>
       <p><strong>Album:</strong> {{ songInfo.album }}</p>
@@ -11,11 +12,13 @@
 </template>
 
 <script>
+import { getAlbumArt, getSongData, getAudioDuration } from '../functions/getSongInfo';
+
 export default {
   props: {
-    // Expecting an audioFile object to be passed as a prop
-    audioFile: {
-      type: Object,
+    // Expecting a file name to be passed as a prop
+    fileName: {
+      type: String,
       required: true
     }
   },
@@ -32,56 +35,54 @@ export default {
     };
   },
   mounted() {
-    // Check if audioFile prop is defined and contains a path
-    if (this.audioFile && this.audioFile.path) {
+    // Check if fileName prop is defined
+    if (this.fileName) {
       // Extract metadata from the audio file
-      this.extractMetadata(this.audioFile.path);
+      this.extractMetadata(this.fileName);
     } else {
-      // Log an error if audioFile prop is not defined or missing the path
-      console.error("audioFile prop is not defined or missing the path property");
+      // Log an error if fileName prop is not defined
+      console.error("fileName prop is not defined");
     }
   },
   methods: {
-    extractMetadata(filePath) {
+    extractMetadata(fileName) {
       // Create an absolute path for the audio file
+      const filePath = `/music-files/${fileName}`;
       const absolutePath = `${window.location.origin}${filePath}`;
+
       // Use jsmediatags to read metadata from the audio file
       window.jsmediatags.read(absolutePath, {
         onSuccess: (tag) => {
           // Update songInfo with extracted metadata
-          this.songInfo.title = tag.tags.title || 'Unknown';
-          this.songInfo.artist = tag.tags.artist || 'Unknown';
-          this.songInfo.album = tag.tags.album || 'Unknown';
-          // Extract album art if available
-          if (tag.tags.picture) {
-            const { data, format } = tag.tags.picture;
-            let base64String = "";
-            for (let i = 0; i < data.length; i++) {
-              base64String += String.fromCharCode(data[i]);
-            }
-            this.songInfo.albumArt = `data:${format};base64,${window.btoa(base64String)}`;
-          }
+          const songData = getSongData(tag.tags);
+          this.songInfo.title = songData.title;
+          this.songInfo.artist = songData.artist;
+          this.songInfo.album = songData.album;
+          this.songInfo.albumArt = getAlbumArt(tag.tags);
+
           // Get the duration of the audio file
-          this.getAudioDuration(absolutePath);
+          getAudioDuration(absolutePath, duration => {
+            this.songInfo.duration = duration;
+          });
         },
         onError: (error) => {
           // Log an error if metadata extraction fails
           console.log(error);
         }
       });
-    },
-    getAudioDuration(filePath) {
-      // Create a new Audio object to load the audio file
-      const audio = new Audio(filePath);
-      // Set the duration when metadata is loaded
-      audio.onloadedmetadata = () => {
-        this.songInfo.duration = `${Math.floor(audio.duration / 60)}:${Math.floor(audio.duration % 60)}`;
-      };
-      // Set the duration to 'Unknown' if there's an error loading the audio file
-      audio.onerror = () => {
-        this.songInfo.duration = 'Unknown';
-      };
     }
   }
 };
 </script>
+
+<style>
+.flex {
+  display: flex;
+  align-items: center;
+}
+.img {
+  height: 8rem;
+  width: 8rem;
+  margin: 0.5rem;
+}
+</style>
