@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { getAlbumArt, getSongData, getAudioDuration } from '../functions/getSongInfo';
+import { extractSongData} from '../functions/getSongInfo';
 
 export default {
   props: {
@@ -34,42 +34,16 @@ export default {
       }
     };
   },
-  mounted() {
-    // Check if fileName prop is defined
+  async mounted() {
     if (this.fileName) {
-      // Extract metadata from the audio file
-      this.extractMetadata(this.fileName);
+      try {
+        const data = await extractSongData(this.fileName);
+        this.songInfo = data;
+      } catch (error) {
+        console.error("Error extracting metadata:", error);
+      }
     } else {
-      // Log an error if fileName prop is not defined
       console.error("fileName prop is not defined");
-    }
-  },
-  methods: {
-    extractMetadata(fileName) {
-      // Create an absolute path for the audio file
-      const filePath = `/music-files/${fileName}`;
-      const absolutePath = `${window.location.origin}${filePath}`;
-
-      // Use jsmediatags to read metadata from the audio file
-      window.jsmediatags.read(absolutePath, {
-        onSuccess: (tag) => {
-          // Update songInfo with extracted metadata
-          const songData = getSongData(tag.tags);
-          this.songInfo.title = songData.title;
-          this.songInfo.artist = songData.artist;
-          this.songInfo.album = songData.album;
-          this.songInfo.albumArt = getAlbumArt(tag.tags);
-
-          // Get the duration of the audio file
-          getAudioDuration(absolutePath, duration => {
-            this.songInfo.duration = duration;
-          });
-        },
-        onError: (error) => {
-          // Log an error if metadata extraction fails
-          console.log(error);
-        }
-      });
     }
   }
 };

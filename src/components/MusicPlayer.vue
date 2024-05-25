@@ -8,7 +8,6 @@
       <p><strong>Album:</strong> {{ songInfo.album }}</p>
       <p><strong>Duration:</strong> {{ songInfo.duration }}</p>
       <img class="h-32 w-32 m-2" :src="songInfo.albumArt" alt="Album Art" v-if="songInfo.albumArt" />
-
     </div>
     <div class="controls">
       <font-awesome-icon :icon="['fas', 'backward-step']" @click="previousSong" />
@@ -20,7 +19,7 @@
 </template>
 
 <script>
-import { getAlbumArt, getSongData, getAudioDuration } from '../functions/getSongInfo';
+import { extractSongData } from '../functions/getSongInfo';
 
 export default {
   name: 'MusicPlayer',
@@ -43,15 +42,12 @@ export default {
       }
     };
   },
-  onMount:{
-
-  },
   watch: {
-    currentSong(newSong) {
+    async currentSong(newSong) {
       if (newSong) {
         this.audioSrc = `/music-files/${newSong}`;
-        this.extractMetadata(newSong);
-        // this.playAudio();
+        await this.extractMetadata(newSong);
+        this.playAudio();
       }
     }
   },
@@ -79,27 +75,13 @@ export default {
     previousSong() {
       this.$emit('previousSong');
     },
-    extractMetadata(fileName) {
-    
-      const filePath = `/music-files/${fileName}`;
-      const absolutePath = `${window.location.origin}${filePath}`;
-      
-      window.jsmediatags.read(absolutePath, {
-        onSuccess: (tag) => {
-          const songData = getSongData(tag.tags);
-          this.songInfo.title = songData.title;
-          this.songInfo.artist = songData.artist;
-          this.songInfo.album = songData.album;
-          this.songInfo.albumArt = getAlbumArt(tag.tags);
-
-          getAudioDuration(absolutePath, duration => {
-            this.songInfo.duration = duration;
-          });
-        },
-        onError: (error) => {
-          console.log(error);
-        }
-      });
+    async extractMetadata(fileName) {
+      try {
+        const data = await extractSongData(fileName);
+        this.songInfo = data;
+      } catch (error) {
+        console.error("Error extracting metadata:", error);
+      }
     }
   }
 };
