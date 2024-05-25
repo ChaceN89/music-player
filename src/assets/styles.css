@@ -46,12 +46,14 @@ body {
 @media (max-height: 600px) {
     .albumArt {
         max-height: 40vh; /* For small viewport heights */
+        max-width: 40vh; /* For small viewport heights */
     }
 }
 
 @media (min-height: 601px) and (max-height: 900px) {
     .albumArt {
         max-height: 50vh; /* For medium viewport heights */
+        max-width: 50vh; /* For medium viewport heights */
     }
 }
 
