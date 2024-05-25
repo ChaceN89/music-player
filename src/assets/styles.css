@@ -11,7 +11,7 @@ body {
 }
 
 .title {
-    @apply text-3xl font-bold text-center py-4 shadow-2xl;
+    @apply text-3xl font-bold text-center py-4 shadow-2xl -mx-20;
 }
 
 .middleSection {
@@ -35,7 +35,7 @@ body {
 }
 
 .playlist {
-    @apply text-base flex-shrink border-0 border-zinc-950 shadow-2xl rounded-lg p-10 overflow-y-auto px-10;
+    @apply text-base flex-shrink border-0 border-zinc-950 shadow-2xl rounded-lg p-10  overflow-y-auto px-10;
     max-height: calc(100vh - 6rem); /* Adjusting height to ensure it fits within the screen height */
 }
 
@@ -52,7 +52,7 @@ body {
 }
 
 .settings {
-    @apply fixed top-3 right-3;
+    @apply fixed top-4 right-12;
 }
 
 .buttonHover {
@@ -67,4 +67,20 @@ body {
     width: 1px;
     background-color: currentColor; /* Use the same color as the text */
     margin: 0 0.5em; /* Adjust the horizontal spacing as needed */
+}
+
+
+/* Custom Scrollbar Styling */
+.playlist::-webkit-scrollbar {
+    width: 8px;
+    background-color: #f1f1f1; /* Background color of the scrollbar track */
+}
+
+.playlist::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+.playlist::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color of the scrollbar thumb on hover */
 }

@@ -4,6 +4,9 @@ export function extractSongData(fileName) {
       // Create an absolute path for the audio file
       const filePath = `/music-files/${fileName}`;
       const absolutePath = `${window.location.origin}${filePath}`;
+
+      console.log(`Absolute path for the file: ${absolutePath}`); // Debugging log
+
   
       let songInfo = {
         title: '',
