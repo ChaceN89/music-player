@@ -41,16 +41,37 @@ export default {
       this.localVolume = newVolume;
     }
   },
+  mounted() {
+    // Initialize theme based on darkMode value
+    if (this.darkMode) {
+      this.applyDark();
+    } else {
+      this.applyLight();
+    }
+  },
   methods: {
     togglePopup() {
       this.showPopup = !this.showPopup;
     },
-    toggleDarkMode() {
-      console.log('Dark mode toggled:', this.darkMode);
-    },
     updateVolume() {
       this.$emit('volume-change', this.localVolume);
-    }
+    },
+    applyLight(){
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    },
+    applyDark(){
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
+    },
+    toggleDarkMode() {
+      if (this.darkMode) {
+        this.applyDark();
+      } else {
+        this.applyLight();
+      }
+      console.log('Dark mode toggled:', this.darkMode);
+    },
   }
 }
 </script>

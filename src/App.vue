@@ -17,12 +17,10 @@
       />
     </div>
     <MusicSettings  :volume="volume" @volume-change="updateVolume" class="settings"/>
-    <BreakPointVisual/>
   </div>
 </template>
 
 <script>
-import BreakPointVisual from './components/BreakPointVisual.vue'
 import MusicPlayer from './components/MusicPlayer.vue'
 import MusicPlaylist from './components/MusicPlaylist.vue'
 import MusicSettings from './components/MusicSettings.vue'
@@ -31,7 +29,6 @@ import AudioList from './data/AudioList'; // Import the audio files list/names
 export default {
   name: 'App',
   components: {
-    BreakPointVisual,
     MusicPlayer,
     MusicPlaylist,
     MusicSettings
