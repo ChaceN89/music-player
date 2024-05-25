@@ -59,7 +59,13 @@ body {
 
 
 .playlist {
-    @apply text-xs xxs:text-sm md:text-base md:w-[400px] lg:w-[575px] xl:w-[650px] flex-shrink border-2 border-opacity-20 border-zinc-950 shadow-2xl rounded-md p-10 overflow-y-auto px-10 mt-2;
+    @apply 
+    text-xs sm:text-sm md:text-base 
+    md:w-[400px] lg:w-[575px] xl:w-[650px] 
+    flex-shrink 
+    border-2 border-opacity-20 border-zinc-950 shadow-2xl rounded-md 
+    overflow-y-auto 
+    p-10 px-10 mt-2;
     max-height: calc(100vh - 5rem); /* Adjusting height to ensure it fits within the screen height */
     box-sizing: border-box; /* Ensure padding is included in the width */
 }
@@ -70,11 +76,15 @@ body {
 }
 
 .playlistSong>img {
-    @apply h-28 m-2 rounded-full;
+    @apply h-16 sm:h-28 m-2 rounded-full;
+}
+
+.playlistText{
+    @apply w-52
 }
 
 .activeSong {
-    @apply bg-slate-400 rounded-xl -mx-3;
+    @apply bg-slate-400 rounded-xl -mx-3 ;
 }
 
 .settings {

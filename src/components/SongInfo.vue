@@ -1,11 +1,11 @@
 <template>
   <div class="playlistSong" v-intersect="onIntersect">
     <img :src="songInfo.albumArt" alt="Album Art" v-if="songInfo.albumArt" />
-    <div>
+    <div class="playlistText">
       <p><strong>Title:</strong> {{ songInfo.title }}</p>
       <p><strong>Artist:</strong> {{ songInfo.artist }}</p>
       <p><strong>Album:</strong> {{ songInfo.album }}</p>
-      <p><strong>Duration:</strong> {{ songInfo.duration }}</p>
+      <!-- <p><strong>Duration:</strong> {{ songInfo.duration }}</p> -->
     </div>
   </div>
 </template>
