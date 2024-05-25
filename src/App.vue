@@ -1,27 +1,21 @@
 <template>
-  <div id="app">
-    <strong>Selected Song Index: </strong> {{ currentSongIndex }} 
-    <div></div>
-    <strong>Audio List: </strong>  {{ audioFileNames }}
-    <div>-------------------------------------------------------------------------------------------------</div>
-    <MusicPlayer 
-      :audioFileNames="audioFileNames" 
-      :currentSong="currentSong" 
-      @nextSong="nextSong" 
-      @previousSong="previousSong" 
-    />
-    <div>-------------------------------------------------------------------------------------------------</div>
-    
-    <!-- ability to select a song with index or  -->
-    <MusicPlaylist 
-      :audioFileNames="audioFileNames" 
-      :currentSongIndex="currentSongIndex" 
-      @setSongIndex="setSongIndex" 
-      @randomSong="randomSong" 
-    />
-    
-    <div>-------------------------------------------------------------------------------------------------</div>
-    <MusicSettings/>
+  <div class="app">
+    <div class="title">Music Player</div>
+    <div class="middleSection">
+      <MusicPlayer class="player"
+        :audioFileNames="audioFileNames"
+        :currentSong="currentSong"
+        @nextSong="nextSong"
+        @previousSong="previousSong"
+      />
+      <MusicPlaylist class="playlist"
+        :audioFileNames="audioFileNames"
+        :currentSongIndex="currentSongIndex"
+        @setSongIndex="setSongIndex"
+        @randomSong="randomSong"
+      />
+    </div>
+    <MusicSettings class="settings"/>
   </div>
 </template>
 
@@ -88,6 +82,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 </style>

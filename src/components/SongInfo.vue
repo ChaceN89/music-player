@@ -1,8 +1,7 @@
 <template>
-  <div class="flex items-center">
-    <img class="h-32 w-32 m-2" :src="songInfo.albumArt" alt="Album Art" v-if="songInfo.albumArt" />
+  <div class="playlistSong">
+    <img :src="songInfo.albumArt" alt="Album Art" v-if="songInfo.albumArt" />
     <div>
-      <p>{{ fileName }}</p>
       <p><strong>Title:</strong> {{ songInfo.title }}</p>
       <p><strong>Artist:</strong> {{ songInfo.artist }}</p>
       <p><strong>Album:</strong> {{ songInfo.album }}</p>

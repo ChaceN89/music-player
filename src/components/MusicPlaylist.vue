@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div>MusicPlaylist</div>
-    <div>audioFileNames{{ audioFileNames }}</div>
-
     <button @click="$emit('randomSong')">
-      <font-awesome-icon :icon="['fas', 'shuffle']" />
+      <font-awesome-icon size="2x" :icon="['fas', 'shuffle']" />
     </button>
     
     <ul>
-      <li v-for="(fileName, index) in audioFileNames" :key="fileName" @click="$emit('setSongIndex', index)">
-        <div>{{index}}</div>
-        <div>{{fileName}}</div>
+      <li v-for="(fileName, index) in audioFileNames" 
+        :key="fileName" 
+        @click="$emit('setSongIndex', index)"
+        :class="{ activeSong: index === currentSongIndex }"
+      >
         <SongInfo :fileName="fileName" />
+        <hr v-if="index !== audioFileNames.length - 1" class="mx-3 border-t-2 border-gray-800">
       </li>
     </ul>
     

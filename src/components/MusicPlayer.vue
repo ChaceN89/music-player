@@ -1,22 +1,28 @@
 <template>
   <div class="music-player">
-    <div>Music Player</div>
-    <div v-if="currentSong">
-      <p><strong>Now Playing:</strong> {{ currentSong }}</p>
-      <p><strong>Title:</strong> {{ songInfo.title }}</p>
-      <p><strong>Artist:</strong> {{ songInfo.artist }}</p>
-      <p><strong>Album:</strong> {{ songInfo.album }}</p>
-      <p><strong>Duration:</strong> {{ songInfo.duration }}</p>
-      <img class="h-32 w-32 m-2" :src="songInfo.albumArt" alt="Album Art" v-if="songInfo.albumArt" />
+    <div v-if="currentSong" class="song-info">
+      <div class="text-center">
+        <p><strong>{{ songInfo.title }}</strong> </p>
+        <p class="inline-block relative">
+          {{ songInfo.artist }} 
+          <span class="vertical-line"></span>
+          {{ songInfo.album }}
+        </p>
+      </div>
+      <div class="album-container">
+        <img class="albumArt" :src="songInfo.albumArt" alt="Album Art" v-if="songInfo.albumArt" />
+      </div>
     </div>
     <div class="controls">
-      <font-awesome-icon :icon="['fas', 'backward-step']" @click="previousSong" />
-      <font-awesome-icon :icon="isPlaying ? ['fas', 'pause'] : ['fas', 'play']" @click="togglePlayPause" />
-      <font-awesome-icon :icon="['fas', 'forward-step']" @click="nextSong" />
+      <font-awesome-icon size="2x" class="buttonHover" :icon="['fas', 'backward-step']" @click="previousSong" />
+      <font-awesome-icon size="2x" class="buttonHover" :icon="isPlaying ? ['fas', 'pause'] : ['fas', 'play']" @click="togglePlayPause" />
+      <font-awesome-icon size="2x" class="buttonHover" :icon="['fas', 'forward-step']" @click="nextSong" />
     </div>
+    <p class="text-center"><strong>Duration:</strong> {{ songInfo.duration }}</p>
     <audio ref="audio" :src="audioSrc" @ended="nextSong"></audio>
   </div>
 </template>
+
 
 <script>
 import { extractSongData } from '../functions/getSongInfo';
@@ -118,5 +124,18 @@ export default {
 .controls .fa-icon {
   cursor: pointer;
   font-size: 1.5rem;
+}
+</style>
+
+
+<style scoped>
+.vertical-line::before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 1.3em; /* Adjust this value to control the height */
+    width: 1px;
+    background-color: currentColor; /* Use the same color as the text */
+    margin: 0 0.5em; /* Adjust the horizontal spacing as needed */
 }
 </style>

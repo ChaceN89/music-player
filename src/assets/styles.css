@@ -1,0 +1,70 @@
+html, body {
+    @apply m-0 p-0 h-full w-full;
+}
+
+body {
+    @apply h-full md:max-h-screen md:overflow-hidden;
+}
+
+.app {
+    @apply md:h-screen bg-zinc-200 flex flex-col text-gray-800 px-10 ;
+}
+
+.title {
+    @apply text-3xl font-bold text-center py-4 shadow-2xl;
+}
+
+.middleSection {
+    @apply md:flex-1 md:flex text-lg;
+}
+
+.player {
+    @apply flex-1 rounded-lg p-4 text-3xl;
+}
+
+.song-info {
+    @apply text-center;
+}
+
+.album-container {
+    @apply flex justify-center my-4;
+}
+
+.albumArt {
+    @apply w-full max-w-xs md:max-w-md lg:max-w-xl shadow-2xl rounded-md;
+}
+
+.playlist {
+    @apply text-base flex-shrink border-0 border-zinc-950 shadow-2xl rounded-lg p-10 overflow-y-auto px-10;
+    max-height: calc(100vh - 6rem); /* Adjusting height to ensure it fits within the screen height */
+}
+
+.playlistSong {
+    @apply flex items-center p-1 sm:w-72 2xl:w-[600px];
+}
+
+.playlistSong>img {
+    @apply h-28 m-2 rounded-full;
+}
+
+.activeSong {
+    @apply bg-slate-400 rounded-xl -mx-3;
+}
+
+.settings {
+    @apply fixed top-3 right-3;
+}
+
+.buttonHover {
+    @apply hover:scale-105 hover:cursor-pointer;
+}
+
+.vertical-line::before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 1.5em; /* Adjust this value to control the height */
+    width: 1px;
+    background-color: currentColor; /* Use the same color as the text */
+    margin: 0 0.5em; /* Adjust the horizontal spacing as needed */
+}

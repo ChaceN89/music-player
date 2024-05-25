@@ -1,6 +1,5 @@
 <template>
-  <div>MusicSettings</div>
-  <font-awesome-icon :icon="['fas', 'gear']" />
+  <font-awesome-icon :icon="['fas', 'gear']" size="2x"/>
 </template>
 
 <script>
