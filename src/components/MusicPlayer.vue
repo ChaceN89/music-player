@@ -10,7 +10,13 @@
         </p>
       </div>
       <div class="album-container">
-        <img class="albumArt" :src="songInfo.albumArt" alt="Album Art" v-if="songInfo.albumArt" />
+        <img class="albumArt" :src="songInfo.albumArt" alt="Album Art" v-if="songInfo.albumArt" >
+        <img/>
+        <DurationSlider 
+          :currentTime="currentTime" 
+          :duration="songInfo.duration" 
+          @update-time="seekAudio"
+        />
       </div>
     </div>
     <div class="controls">
@@ -18,17 +24,19 @@
       <font-awesome-icon size="2x" class="buttonHover" :icon="isPlaying ? ['fas', 'pause'] : ['fas', 'play']" @click="togglePlayPause" />
       <font-awesome-icon size="2x" class="buttonHover" :icon="['fas', 'forward-step']" @click="nextSong" />
     </div>
-    <p class="text-center"><strong>Duration:</strong> {{ songInfo.duration }}</p>
-    <audio ref="audio" :src="audioSrc" @ended="nextSong"></audio>
+    <audio ref="audio" :src="audioSrc" @timeupdate="updateCurrentTime" @ended="nextSong"></audio>
   </div>
 </template>
 
-
 <script>
 import { extractSongMetadata } from '../functions/getSongInfo';
+import DurationSlider from './DurationSlider.vue';
 
 export default {
   name: 'MusicPlayer',
+  components: {
+    DurationSlider
+  },
   props: {
     currentSong: {
       type: String,
@@ -45,7 +53,8 @@ export default {
         album: '',
         duration: '',
         albumArt: ''
-      }
+      },
+      currentTime: 0,
     };
   },
   watch: {
@@ -102,41 +111,23 @@ export default {
       try {
         const data = await extractSongMetadata(fileName);
         this.songInfo = data;
+        const audio = this.$refs.audio;
+        audio.onloadedmetadata = () => {
+          this.duration = audio.duration;
+        };
       } catch (error) {
         console.error("Error extracting metadata:", error);
       }
+    },
+    updateCurrentTime() {
+      const audio = this.$refs.audio;
+      this.currentTime = audio.currentTime;
+    },
+    seekAudio(newTime) {
+      const audio = this.$refs.audio;
+      audio.currentTime = newTime;
+      this.currentTime = newTime;
     }
   }
 };
 </script>
-
-<style>
-.music-player {
-  text-align: center;
-  padding: 20px;
-}
-.controls {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 10px;
-}
-.controls .fa-icon {
-  cursor: pointer;
-  font-size: 1.5rem;
-}
-</style>
-
-
-<style scoped>
-
-.vertical-line::before {
-    content: '';
-    display: inline-block;
-    vertical-align: middle;
-    height: 1.3em; /* Adjust this value to control the height */
-    width: 1px;
-    background-color: currentColor; /* Use the same color as the text */
-    margin: 0 0.5em; /* Adjust the horizontal spacing as needed */
-}
-</style>
