@@ -25,7 +25,7 @@
 
 
 <script>
-import { extractSongData } from '../functions/getSongInfo';
+import { extractSongMetadata } from '../functions/getSongInfo';
 
 export default {
   name: 'MusicPlayer',
@@ -100,7 +100,7 @@ export default {
     },
     async extractMetadata(fileName) {
       try {
-        const data = await extractSongData(fileName);
+        const data = await extractSongMetadata(fileName);
         this.songInfo = data;
       } catch (error) {
         console.error("Error extracting metadata:", error);

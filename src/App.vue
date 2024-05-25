@@ -48,13 +48,11 @@ export default {
       return this.audioFileNames[this.currentSongIndex];
     },
   },
-  // functions that can be accessed
   methods: {
     // set a specific index
     setSongIndex(newIndex) {
       this.currentSongIndex = newIndex;
     },
-    // go to the next song
     nextSong() {
       if (this.currentSongIndex < this.audioFileNames.length - 1) {
         this.currentSongIndex++;
@@ -62,7 +60,6 @@ export default {
         this.currentSongIndex = 0; // Wrap around to the first song
       }
     },
-    // go to the previous song
     previousSong() {
       if (this.currentSongIndex > 0) {
         this.currentSongIndex--;
@@ -70,7 +67,6 @@ export default {
         this.currentSongIndex = this.audioFileNames.length - 1; // Wrap around to the last song
       }
     },
-    // go to a random song
     randomSong(){
       this.currentSongIndex = Math.floor(Math.random() * this.audioFileNames.length);
     }

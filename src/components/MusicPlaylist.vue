@@ -1,13 +1,13 @@
 <template>
   <div>
-    <button @click="$emit('randomSong')">
+    <button @click="handleRandomSong">
       <font-awesome-icon size="2x" :icon="['fas', 'shuffle']" />
     </button>
     
     <ul>
       <li v-for="(fileName, index) in audioFileNames" 
         :key="fileName" 
-        @click="$emit('setSongIndex', index)"
+        @click="handleSetSongIndex(index)"
         :class="{ activeSong: index === currentSongIndex }"
       >
         <SongInfo :fileName="fileName" />
@@ -26,7 +26,6 @@ export default {
   components: {
     SongInfo
   },
-  // arguments passed into this 
   props: {
     audioFileNames: {
       type: Array,
@@ -45,7 +44,13 @@ export default {
       required: true,
     },
   },
+  methods: {
+    handleSetSongIndex(index) {
+      this.$emit('setSongIndex', index);
+    },
+    handleRandomSong() {
+      this.$emit('randomSong');
+    }
+  }
 };
 </script>
-
-

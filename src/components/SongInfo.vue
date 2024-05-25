@@ -4,18 +4,17 @@
     <div>
       <p><strong>Title:</strong> {{ songInfo.title }}</p>
       <p><strong>Artist:</strong> {{ songInfo.artist }}</p>
-      <p class="smallHidden"><strong>Album:</strong> {{ songInfo.album }}</p>
-      <p class="smallHidden"><strong>Duration:</strong> {{ songInfo.duration }}</p>
+      <p><strong>Album:</strong> {{ songInfo.album }}</p>
+      <p><strong>Duration:</strong> {{ songInfo.duration }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import { extractSongData} from '../functions/getSongInfo';
+import { extractSongMetadata } from '../functions/getSongInfo';
 
 export default {
   props: {
-    // Expecting a file name to be passed as a prop
     fileName: {
       type: String,
       required: true
@@ -23,12 +22,10 @@ export default {
   },
   data() {
     return {
-      // Initialize songInfo object to store metadata
       songInfo: {
         title: '',
         artist: '',
         album: '',
-        genre: '',
         duration: '',
         albumArt: ''
       }
@@ -37,7 +34,7 @@ export default {
   async mounted() {
     if (this.fileName) {
       try {
-        const data = await extractSongData(this.fileName);
+        const data = await extractSongMetadata(this.fileName);
         this.songInfo = data;
       } catch (error) {
         console.error("Error extracting metadata:", error);

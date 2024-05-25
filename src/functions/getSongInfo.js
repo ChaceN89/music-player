@@ -1,45 +1,42 @@
 
-export function extractSongData(fileName) {
-    return new Promise((resolve, reject) => {
-      // Create an absolute path for the audio file
-      const filePath = `/music-files/${fileName}`;
-      const absolutePath = `${window.location.origin}${filePath}`;
+export function extractSongMetadata(fileName) {
+  return new Promise((resolve, reject) => {
+    const filePath = `/music-files/${fileName}`;
+    const absolutePath = `${window.location.origin}${filePath}`;
 
-      console.log(`Absolute path for the file: ${absolutePath}`); // Debugging log
+    console.log(`Absolute path for the file: ${absolutePath}`); // Debugging log
 
-  
-      let songInfo = {
-        title: '',
-        artist: '',
-        genre: '',
-        album: '',
-        duration: '',
-        albumArt: ''
-      };
-  
-      window.jsmediatags.read(absolutePath, {
-        onSuccess: (tag) => {
-          // Update songInfo with extracted metadata
-          const songData = getSongData(tag.tags);
-          songInfo.title = songData.title;
-          songInfo.artist = songData.artist;
-          songInfo.album = songData.album;
-          songInfo.genre = songData.genre;
-          songInfo.albumArt = getAlbumArt(tag.tags);
-  
-          // Get the duration of the audio file
-          getAudioDuration(absolutePath, duration => {
-            songInfo.duration = duration;
-            resolve(songInfo);
-          });
-        },
-        onError: (error) => {
-          console.log(error);
-          reject(error);
-        }
-      });
+    let songInfo = {
+      title: '',
+      artist: '',
+      genre: '',
+      album: '',
+      duration: '',
+      albumArt: ''
+    };
+
+    window.jsmediatags.read(absolutePath, {
+      onSuccess: (tag) => {
+        const songData = getSongData(tag.tags);
+        songInfo.title = songData.title;
+        songInfo.artist = songData.artist;
+        songInfo.album = songData.album;
+        songInfo.genre = songData.genre;
+        songInfo.albumArt = getAlbumArt(tag.tags);
+
+        getAudioDuration(absolutePath, duration => {
+          songInfo.duration = duration;
+          resolve(songInfo);
+        });
+      },
+      onError: (error) => {
+        console.log(error);
+        reject(error);
+      }
     });
-  }
+  });
+}
+
 
 function getAlbumArt(tag) {
     if (tag.picture) {
