@@ -4,8 +4,8 @@
     <div>
       <p><strong>Title:</strong> {{ songInfo.title }}</p>
       <p><strong>Artist:</strong> {{ songInfo.artist }}</p>
-      <p><strong>Album:</strong> {{ songInfo.album }}</p>
-      <p><strong>Duration:</strong> {{ songInfo.duration }}</p>
+      <p class="smallHidden"><strong>Album:</strong> {{ songInfo.album }}</p>
+      <p class="smallHidden"><strong>Duration:</strong> {{ songInfo.duration }}</p>
     </div>
   </div>
 </template>

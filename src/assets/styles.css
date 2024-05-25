@@ -35,7 +35,8 @@ body {
 }
 
 .playlist {
-    @apply text-base flex-shrink border-0 border-zinc-950 shadow-2xl rounded-lg p-10  overflow-y-auto px-10;
+    @apply text-xs xxs:text-sm md:text-base  md:w-[400px] lg:w-[575px] xl:w-[650px]
+      flex-shrink border-2 border-opacity-20 border-zinc-950 shadow-2xl rounded-md p-10 overflow-y-auto px-10 mt-1 ;
     max-height: calc(100vh - 6rem); /* Adjusting height to ensure it fits within the screen height */
 }
 
@@ -52,7 +53,7 @@ body {
 }
 
 .settings {
-    @apply fixed top-4 right-12;
+    @apply fixed top-1 right-4 md:top-4 md:right-12;
 }
 
 .buttonHover {
