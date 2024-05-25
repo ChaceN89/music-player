@@ -49,9 +49,26 @@ export default {
         await this.extractMetadata(newSong);
         this.playAudio();
       }
+      this.changeTitle();
+    },
+    isPlaying() {
+      this.changeTitle();
+    }
+  },
+  mounted() {
+    if (this.currentSong) {
+      this.audioSrc = `/music-files/${this.currentSong}`;
+      this.extractMetadata(this.currentSong);
     }
   },
   methods: {
+    changeTitle() {
+      if (this.isPlaying && this.songInfo.title) {
+        document.title = this.songInfo.title;
+      } else {
+        document.title = "Music Player";
+      }
+    },
     playAudio() {
       const audio = this.$refs.audio;
       audio.play();

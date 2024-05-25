@@ -8,6 +8,7 @@ export function extractSongData(fileName) {
       let songInfo = {
         title: '',
         artist: '',
+        genre: '',
         album: '',
         duration: '',
         albumArt: ''
@@ -20,6 +21,7 @@ export function extractSongData(fileName) {
           songInfo.title = songData.title;
           songInfo.artist = songData.artist;
           songInfo.album = songData.album;
+          songInfo.genre = songData.genre;
           songInfo.albumArt = getAlbumArt(tag.tags);
   
           // Get the duration of the audio file
@@ -52,9 +54,10 @@ function getAlbumArt(tag) {
   
 function getSongData(tag) {
     return {
-        title: tag.title || 'Unknown',
+        title: tag.title ||  'Unknown',
         artist: tag.artist || 'Unknown',
-        album: tag.album || 'Unknown'
+        album: tag.album || 'Unknown',
+        genre: tag.genre || 'Unknown'
     };
 }
   

@@ -29,6 +29,7 @@ export default {
         title: '',
         artist: '',
         album: '',
+        genre: '',
         duration: '',
         albumArt: ''
       }
