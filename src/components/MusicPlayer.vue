@@ -2,21 +2,17 @@
   <div class="music-player">
     <div v-if="currentSong" class="song-info">
       <div class="text-center">
-        <p><strong>{{ songInfo.title }}</strong> </p>
+        <p><strong>{{ songInfo.title }}</strong></p>
         <p class="inline-block relative">
-          {{ songInfo.artist }} 
+          {{ songInfo.artist }}
           <span class="vertical-line"></span>
           {{ songInfo.album }}
         </p>
       </div>
       <div class="album-container">
-        <img class="albumArt" :src="songInfo.albumArt" alt="Album Art" v-if="songInfo.albumArt" >
+        <img class="albumArt" :src="songInfo.albumArt" alt="Album Art" v-if="songInfo.albumArt">
         <img/>
-        <DurationSlider 
-          :currentTime="currentTime" 
-          :duration="songInfo.duration" 
-          @update-time="seekAudio"
-        />
+        <DurationSlider :currentTime="currentTime" :duration="songInfo.duration" @update-time="seekAudio" />
       </div>
     </div>
     <div class="controls">
@@ -41,6 +37,10 @@ export default {
     currentSong: {
       type: String,
       required: true
+    },
+    volume: {
+      type: Number,
+      default: 50
     }
   },
   data() {
@@ -68,6 +68,10 @@ export default {
     },
     isPlaying() {
       this.changeTitle();
+    },
+    volume(newVolume) {
+      const audio = this.$refs.audio;
+      audio.volume = newVolume / 100;
     }
   },
   mounted() {

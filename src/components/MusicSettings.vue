@@ -3,7 +3,6 @@
     <font-awesome-icon class="buttonHover" :icon="['fas', 'gear']" size="2x" @click="togglePopup" />
     <transition name="dropdown">
       <div v-if="showPopup" class="popup">
-
         <p class="underline text-lg">Settings</p>
         <div class="setting-item">
           <span>Dark Mode</span>
@@ -12,12 +11,10 @@
             <span class="slider"></span>
           </label>
         </div>
-
         <div class="setting-item gap-1">
           <label for="volume-slider">Volume</label>
-          <input type="range" id="volume-slider" v-model="volume" min="0" max="100" @input="updateVolume" />
+          <input type="range" id="volume-slider" v-model="localVolume" min="0" max="100" @input="updateVolume" />
         </div>
-     
       </div>
     </transition>
   </div>
@@ -27,28 +24,32 @@
 export default {
   name: 'MusicSettings',
   props: {
-    msg: String
+    volume: {
+      type: Number,
+      default: 50
+    }
   },
   data() {
     return {
       showPopup: false,
       darkMode: false,
-      volume: 50
+      localVolume: this.volume
     };
+  },
+  watch: {
+    volume(newVolume) {
+      this.localVolume = newVolume;
+    }
   },
   methods: {
     togglePopup() {
       this.showPopup = !this.showPopup;
     },
     toggleDarkMode() {
-      // Placeholder for dark mode functionality
       console.log('Dark mode toggled:', this.darkMode);
-      // Here you can add the logic to enable/disable dark mode in your application
     },
     updateVolume() {
-      // Placeholder for volume update functionality
-      console.log('Volume level:', this.volume);
-      // Here you can add the logic to update the volume in your application
+      this.$emit('volume-change', this.localVolume);
     }
   }
 }
@@ -127,3 +128,4 @@ input:checked + .slider:before {
   opacity: 0;
 }
 </style>
+

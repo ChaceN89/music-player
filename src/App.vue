@@ -3,6 +3,7 @@
     <div class="title">Music Player</div>
     <div class="middleSection">
       <MusicPlayer class="player"
+        :volume="volume"
         :audioFileNames="audioFileNames"
         :currentSong="currentSong"
         @nextSong="nextSong"
@@ -15,7 +16,7 @@
         @randomSong="randomSong"
       />
     </div>
-    <MusicSettings class="settings"/>
+    <MusicSettings  :volume="volume" @volume-change="updateVolume" class="settings"/>
     <BreakPointVisual/>
   </div>
 </template>
@@ -40,6 +41,7 @@ export default {
     return {
       audioFileNames: AudioList,
       currentSongIndex: 0,
+      volume: 75
     };
   },
   // variable that ahnge when there dependencies cahnge
@@ -49,6 +51,9 @@ export default {
     },
   },
   methods: {
+    updateVolume(newVolume) {
+      this.volume = newVolume;
+    },
     // set a specific index
     setSongIndex(newIndex) {
       this.currentSongIndex = newIndex;
