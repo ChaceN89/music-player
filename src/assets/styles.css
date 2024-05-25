@@ -7,7 +7,13 @@ body {
 }
 
 .app {
-    @apply md:h-screen bg-zinc-200 flex flex-col text-gray-800 px-10 ;
+    @apply md:h-screen 
+
+    bg-zinc-200 dark:bg-stone-600
+    text-gray-800 dark:text-white
+
+    flex flex-col
+     px-10 ;
 }
 
 .title {
@@ -70,7 +76,7 @@ body {
 }
 
 .settings {
-    @apply fixed top-1 right-4 md:top-4 md:right-12;
+    @apply fixed top-2 right-4 md:top-4 md:right-12;
 }
 
 .buttonHover {
