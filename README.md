@@ -13,13 +13,14 @@ An online music player built with Vue, featuring a responsive design and theme s
 
 ## Description
 
-The Music Player is a simple yet elegant online music player built using Vue.js and Tailwind CSS. It offers a responsive design with theme selection, allowing users to switch between light and dark modes.
+The Music Player is a simple yet elegant online music player built using Vue.js and Tailwind CSS. It offers a responsive design with theme selection, allowing users to switch between light and dark modes. The application displays and loads songs, providing an engaging user experience.
 
 ## Features
 
 - **Responsive Design:** Adapts to different screen sizes for optimal viewing.
 - **Theme Selection:** Toggle between light and dark themes.
 - **Music Playback:** Play, pause, and navigate through songs.
+- **Song Display:** Display and load songs for playback.
 
 ## Technologies Used
 
